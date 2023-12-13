@@ -6,7 +6,7 @@
 /*   By: sdoidi <sdoidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 11:34:17 by sdoidi            #+#    #+#             */
-/*   Updated: 2023/12/13 15:52:34 by sdoidi           ###   ########.fr       */
+/*   Updated: 2023/12/13 19:23:05 by sdoidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,43 +206,33 @@ Subjects : 1-Ecrire un programme qui prends une str en parametre et affiche chaq
 
 #include <unistd.h>
 
-void	ft_putchar(char c) //pour mettre en place une utilistion de write pratique
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *str)
-{
-	int i;
-
-	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i])
-	{
-		write(1, &str, 1);
-	}
-	/*
-	while (str[i])
-		i++;
-	write(1, &str, i);*/
-}
-
 //le sujet ne donne pas de prototype de fonction attendu, l'exo peut se faire dans le main
 int	main(int argc, char **argv) //utilisation de parametres lors de la compilation
 {
 	int	i;
+	int repeat_letter;
 
 	i = 0;
 	if (argc == 2) //met en place la 3e consigne (argc[0] argc [1] max)
 	{
-		while (argv[i])
+		str = av[1]; //la str sera ecrite dans le terminal, nous definissons donc sur la str sera ce qui se trouve dans argv[1]
+		while (str[i])
 		{
-
-			i++;
+			repeat_letter = 1; //initie a 1 car aucune lettre ne peut avoir 0 pour valeur
+		//on detecte les caracteres alphabetiques et on leur donne la valeur de leur ordre alphabetique
+			if (str[i] >= 'A' && str[i] <= 'Z') 
+				repeat_letter = str[i] - 64;
+			if (str[i] >= 'a' && str[i] <= 'z')
+				repeat_letter = str[i] - 96;
+			while (repeat_letter >= 1) //il faut que repeat_letter ai une valeur au dessus de 0 pour pourvoir designer une lettre
+			{
+				write(1, &str[i], 1); //on affiche le caractere i
+				repeat_letter--; //le nombre de fois egal a la valeur de repeat_letter
+			}
+			i++; //parcourt la str
 		}
 	}
-	ft_putchar('\n'); //else de la 3e consigne (affiche un \n) + \n de la 1ere consigne
+	write(1, "\n", 1); //else de la 3e consigne (affiche un \n) + \n de la 1ere consigne
 	return (0); //il faut retourner un int
 }
 

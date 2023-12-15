@@ -10,35 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-#include <unistd.h>
-//le sujet ne donne pas de prototype de fonction attendu, l'exo peut se faire dans le main
-int	main(int argc, char **argv) //utilisation de parametres lors de la compilation
+#include <stdlib.h>
+#include <stdio.h>
+//pas de main car seule une fonction est demandee
+char    *ft_strdup(char *src) //2e consigne
 {
-	char *str;
 	int	i;
-	int repeat_letter;
+	char *dest; //nouvelle chaine
 
 	i = 0;
-	if (argc == 2) //met en place la 3e consigne (argc[1] to argc[2] max/argv[0] to argv [1] max)
+	while (src[i] != '\0') //on parcourt src
+		i++;
+	dest = malloc(sizeof (char) * (i + 1)); //on alloue la taille de src dans dest
+	if (dest == NULL) //securite malloc
+		return (NULL);
+	i = 0; //on remet i a 0 pour pouvoir copier
+	while (src[i] != '\0') //on parcourt src
 	{
-		while (argv[1][i])
-		{
-			repeat_letter = 1; //initie a 1 car aucune lettre ne peut avoir 0 pour valeur
-		//on detecte les caracteres alphabetiques et on leur donne la valeur de leur ordre alphabetique
-			if (argv[1][i] >= 'A' && argv[1][i] <= 'Z') 
-				repeat_letter = argv[1][i] - 64;
-			if (argv[1][i] >= 'a' && argv[1][i] <= 'z')
-				repeat_letter = argv[1][i] - 96;
-			while (repeat_letter >= 1) //il faut que repeat_letter ai une valeur au dessus de 0 pour pourvoir designer une lettre
-			{
-				write(1, &argv[1][i], 1); //on affiche le caractere i
-				repeat_letter--; //le nombre de fois egal a la valeur de repeat_letter
-			}
-			i++; //parcourt la str
-		}
+		dest[i] = src[i]; //on copie les caracteres
+		i++;
 	}
-	write(1, "\n", 1); //else de la 3e consigne (affiche un \n) + \n de la 1ere consigne
-	return (0); //il faut retourner un int
+	dest[i] = '\0'; //on ajoute un caractere de fin
+	return (dest); //on renvoie la chaine dupliquee
+}
+
+int main(void)
+{
+	printf("%s\n", ft_strdup("This is a test!"));
 }

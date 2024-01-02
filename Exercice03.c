@@ -217,19 +217,6 @@ int		ft_atoi_base(const char *str, int str_base)
 	return (result * sign);
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-int		ft_atoi_base(const char *str, int str_base);
-
-int main(int argc, char **argv)
-{
-    if (argc == 3)
-    {
-        printf("%d\n", ft_atoi_base(argv[1], atoi(argv[2])));
-    }
-    return (0);
-}
-
 Exercice : ft_list_size.c 
 Allowed functions : none
 Subjects : 1-Écrire une fonction qui retourne le nombre d'elements' present dans la liste chainee 
@@ -248,38 +235,6 @@ int	ft_list_size(t_list *begin_list)
 		return (0);
 	else
 		return (1 + ft_list_size(begin_list->next));
-}
-
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct s_list
-{
-    struct s_list *next;
-    void          *data;
-} t_list;
-
-
-int	ft_list_size(t_list *begin_list);
-
-
-int	main(void)
-{
-	int n = 0;
-
-	t_list *c = malloc(sizeof(*c));
-	c->next = 0;
-	c->data = &n;
-
-	t_list *b = malloc(sizeof(*b));
-	b->next = c;
-	b->data = &n;
-
-	t_list *a = malloc(sizeof(*a));
-	a->next = b;
-	a->data = &n;
-
-	printf("%d\n", ft_list_size(a));
 }
 
 Exercice : ft_range.c 
@@ -328,25 +283,6 @@ int	*ft_range(int start, int end)
 	return (res);
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-
-int *ft_range(int start, int end);
-
-int main(int argc, char **argv)
-{
-	(void)argc;
-	int	arr_len;
-	int	*arr;
-
-	arr_len = abs(atoi(argv[2]) - atoi(argv[1]));
-	arr = ft_range(atoi(argv[1]), atoi(argv[2]));
-	for (int i = 0; i <= arr_len; i += 1)
-		printf("%d\n", arr[i]);
-	free(arr);
-	return (EXIT_SUCCESS);
-}
-
 Exercice : ft_rrange.c 
 Allowed functions : malloc
 Subjects : 1-Il faut allouer (avec malloc()) un tableau d'entiers', le remplir avec des valeurs consécutives commençant à end et se terminant à start (en incluant start et end !), puis retourner un pointeur vers la première valeur du tableau.
@@ -384,35 +320,6 @@ int		*ft_rrange(int start, int end)
 		++i;
 	}
 	return (array);
-}
-
-#include <stdio.h>
-#include <stdlib.h>
-
-int		*ft_rrange(int start, int end);
-int		absolute_value(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
-
-int		main(int argc, char **argv)
-{
-	int start = atoi(argv[1]);
-	int end = atoi(argv[2]);
-
-	int *arr = ft_rrange(start, end);
-
-	int i = 0;
-	while (i < 1 + absolute_value(end - start))
-	{
-		printf("%d", arr[i]);
-        if (i < 1 + absolute_value(end - start) - 1)
-            printf(", ");
-		++i;
-	}
-	printf("\n");
 }
 
 Exercice : hidenp.c 
@@ -476,26 +383,6 @@ unsigned int	lcm(unsigned int a, unsigned int b)
 			return (n);
 		++n;
 	}
-}
-
-//--------------------------------------------------------------
-// #include <stdio.h>
-
-// int main(void)
-// {
-// 	printf("%u\n", lcm(0, 5));
-// }
-
-#include <stdio.h>
-#include <stdlib.h>
-
-unsigned int	lcm(unsigned int a, unsigned int b);
-
-int		main(int argc, char **argv)
-{
-	unsigned int a = atoi(argv[1]);
-	unsigned int b = atoi(argv[2]);
-	printf("%d\n", lcm(a,b));
 }
 
 Exercice : paramsum.c 

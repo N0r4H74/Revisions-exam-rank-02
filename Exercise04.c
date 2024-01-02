@@ -30,87 +30,6 @@ void	flood_fill(char **tab, t_point size, t_point begin)
 	fill(tab, size, begin, tab[begin.y][begin.x]);
 }
 
-#include <stdlib.h>
-#include <stdio.h>
-
-typedef struct 	s_point {
-    int 		x;				// x : Width  | x-axis
-    int 		y;				// y : Height | y-axis
-} 				t_point;
-
-void	flood_fill(char **tab, t_point size, t_point begin);
-
-char** make_area(char** zone, t_point size)
-{
-	char** new;
-
-	new = malloc(sizeof(char*) * size.y);
-	for (int i = 0; i < size.y; ++i)
-	{
-		new[i] = malloc(size.x + 1);
-		for (int j = 0; j < size.x; ++j)
-			new[i][j] = zone[i][j];
-		new[i][size.x] = '\0';
-	}
-
-	return new;
-}
-
-int	main(void)
-{
-	t_point size = {8, 5};
-	char *zone1[] = {
-		"11111111",
-		"10000001",
-		"10010101",
-		"10110001",
-		"11101111",
-	};
-	char *zone2[] = {
-		"11111111",
-		"10011001",
-		"10100101",
-		"11000011",
-		"11111111",
-	};
-
-	// Make area arrays
-	char**  area1 = make_area(zone1, size);
-	char**  area2 = make_area(zone1, size);
-	char**  area3 = make_area(zone2, size);
-	// Present map 1
-	printf("Map 1\n");
-	for (int i = 0; i < size.y; ++i)
-		printf("%s\n", area1[i]);
-	printf("\n");
-	// Assign starting points
-	t_point begin1 = {7, 4};
-	t_point begin2 = {3, 1};
-	t_point begin3 = {0, 0};
-	// Perform first two operations
-	flood_fill(area1, size, begin1);
-	flood_fill(area2, size, begin2);
-	printf("Start (7, 4)\n");
-	for (int i = 0; i < size.y; ++i)
-		printf("%s\n", area1[i]);
-	printf("\n");
-	printf("Start (3, 1)\n");
-	for (int i = 0; i < size.y; ++i)
-		printf("%s\n", area2[i]);
-	printf("\n-----------\n");
-	// Present map 2
-	printf("Map 2\n");
-	for (int i = 0; i < size.y; ++i)
-		printf("%s\n", area3[i]);
-	printf("\n");
-	// Perform third operation
-	flood_fill(area3, size, begin3);
-	printf("Start (0, 0)\n");
-	for (int i = 0; i < size.y; ++i)
-		printf("%s\n", area3[i]);
-	return (0);
-}
-
 Exercice : fprime.c 
 Allowed functions : printf, atoi
 Subjects : 1-Voici un programme qui prend un entier positif et affiche ses facteurs premiers sur la sortie standard, suivis d'un' saut de ligne.
@@ -218,38 +137,6 @@ char	*ft_itoa(int nbr)
 	return (result);
 }
 
-//-------------------------------------------------------
-// #include <stdio.h>
-// #include <limits.h>
-
-// int		main(void)
-// {
-// 	int d = INT_MIN;
-// 	printf("%d =? %s\n", d, ft_itoa(d));
-
-// 	d = -13;
-// 	printf("%d =? %s\n", d, ft_itoa(d));
-
-// 	d = 0;
-// 	printf("%d =? %s\n", d, ft_itoa(d));
-
-// 	d = 5;
-// 	printf("%d =? %s\n", d, ft_itoa(d));
-
-// 	d = INT_MAX;
-// 	printf("%d =? %s\n", d, ft_itoa(d));
-// }
-
-#include <stdio.h>
-#include <stdlib.h>
-char	*ft_itoa(int nbr);
-
-int main(int argc, char **argv)
-{
-    printf("%s\n", ft_itoa(atoi(argv[1])));
-    return (0);
-}
-
 Exercice : ft_split.c 
 Allowed functions : malloc
 Subjects : 1-Voici une fonction qui prend une chaîne de caractères, la divise en mots et les renvoie sous forme d'un' tableau de chaînes de caractères terminé par NULL.
@@ -326,32 +213,6 @@ char	**ft_split(char *str)
 	array[num_words] = 0;
 	fill_words(array, str);
 	return (array);
-}
-
-#include <stdlib.h>
-#include <stdio.h>
-
-char	**ft_split(char *str);
-
-int main(int argc, char **argv)
-{
-	char	**split;
-	int		i;
-
-	if (argc == 2)
-	{
-		split = ft_split(argv[1]);
-			printf("%s ", split[0]);
-		i = 1;
-		while (split[i] != 0)
-		{
-			printf("%s ", split[i]);
-			i++;
-		}
-		printf("%s", split[i]);
-	}
-	printf("\n");
-    return (0);
 }
 
 Exercice : rew_wstr.c 
@@ -486,7 +347,19 @@ int		main(int argc, char **argv)
 
 Exercice : rostring.c 
 Allowed functions : write (unistd.h), malloc (), free
-Subjects : 1-
+Subjects : 1-Ecrire la fonction suivante : t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
+		   2-Cette fonction trie la liste donnée en paramètre en utilisant le pointeur de fonction cmp pour déterminer l'ordre' à appliquer, et renvoie un pointeur vers le premier élément de la liste triée.
+			 Les duplications doivent être préservées.
+			 Les entrées seront toujours cohérentes.
+		   3-Vous devez utiliser le type t_list décrit dans le fichier list.h qui vous est fourni.
+		     Vous devez inclure ce fichier (#include "list.h"), mais ne le soumettez pas.
+			 Nous utiliserons notre propre fichier pour compiler votre devoir.
+		   4-Les fonctions transmises en tant que cmp retourneront toujours une valeur différente de 0 si a et b sont dans le bon ordre, 0 sinon.
+		     Par exemple, la fonction suivante utilisée en tant que cmp triera la liste dans l'ordre' croissant :
+				int ascending(int a, int b)
+				{
+					return (a <= b);
+				}
 
 list.h
 
@@ -522,58 +395,9 @@ t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 				swap_values(cur, cur->next);
 				swapped = 1;
 			}
-			cur = cur->next;
+			cur = cur->²next;
 		}
 		cur = lst;
 	}
 	return (lst);
-}
-
-#include "list.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-void	swap_values(t_list *a, t_list *b);
-t_list	*sort_list(t_list *lst, int (*cmp)(int, int));
-
-int ascending(int a, int b)
-{
-	return (a <= b);
-}
-
-int	main(void)
-{
-	t_list *c = malloc(sizeof(t_list));
-	c->next = 0;
-	c->data = 45;
-
-	t_list *b = malloc(sizeof(t_list));
-	b->next = c;
-	b->data = 73;
-
-	t_list *a = malloc(sizeof(t_list));
-	a->next = b;
-	a->data = 108;
-
-	t_list *cur = a;
-	while (cur)
-	{
-		printf("%d", cur->data);
-		if (cur->next != 0)
-			printf(", ");
-		cur = cur->next;
-	}
-	printf("\n");
-
-	cur = sort_list(a, ascending);
-
-	// cur = a;
-	while (cur)
-	{
-		printf("%d", cur->data);
-		if (cur->next != 0)
-			printf(", ");
-		cur = cur->next;
-	}
-	printf("\n");
 }

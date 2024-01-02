@@ -318,7 +318,7 @@ int         is_power_of_2(unsigned int n) //3e conigne
 
 Exercice : last_word.c
 Allowed functions : write (unistd.h)
-Subjects : 1-Ecrire un programme qui le dermier de la str suivi de \n
+Subjects : 1-Ecrire un programme qui affiche le dermier mot de la str suivi de \n
 		   2-Un mot est delimite par un espace/tab ou un debut/fin de ligne
 		   3-Si argv != 1 = \n
 
@@ -352,7 +352,7 @@ int	main(int argc, char **argv) //utilisation de parametres lors de la compilati
 
 Exercice : max.c
 Allowed functions : none
-Subjects : 1-Ecrire la fonction suivante : int		max(int* tab, unsigned int len); Le premier parametre est un tableau de int, le second est le nombre d elements dans le tableau
+Subjects : 1-Ecrire la fonction suivante : int	max(int *tab, unsigned int len); Le premier parametre est un tableau de int, le second est le nombre d elements dans le tableau
 		   2-La fonction retourne le plus grand nombre trouve dans le tableau
 		   3-Si le tableau est vide il retourne 0
 
@@ -373,7 +373,7 @@ int	max(int* tab, unsigned int len)//utilisation de parametres lors de la compil
 			result = tab[i];//met à jour result si la valeur du tableau est plus grande que la valeur actuelle de result
 		i++;
 	}
-	return (res); //renvoie la valeur maximale
+	return (result); //renvoie la valeur maximale
 }
 
 Exercice : print_bits.c
@@ -458,28 +458,28 @@ Subjects : 1-Ecrire un programme qui prend 2 str et affiche, sans doublons, tous
 
 int main(int argc, char **argv)
 {
-	int i;
-	int j;
-	int tab[255] = {0};
+	int i; //designe argv
+	int j; //parcourt argv
+	int tab[255] = {0}; //Ce tableau servira à marquer les caractères présents dans les arguments
 
-	if (argc == 3)
+	if (argc == 3) //2eme consigne
 	{	
-		i = 1;
-		while (i <= 2)
+		i = 1; //argv[1]
+		while (i <= 2) //verifie argv[1] et argv[2] et empeche de chercher argv[3] et +
 		{
 			j = 0;
-			while (argv[i][j])
+			while (argv[i][j]) //parcourt argv[1]
 			{
-				if (tab[(int)argv[i][j]] == 0)
+				if (tab[(int)argv[i][j]] == 0) //verifie que j n'a pas deja ete trouve
 				{
-					tab[(int)argv[i][j]] = 1;
-					write(1, &argv[i][j], 1);
+					tab[(int)argv[i][j]] = 1; //chaque fois qu'on rencontre un nouveau caractere
+					write(1, &argv[i][j], 1); //on l'affiche immediatement
 				}
-				j++;
+				j++; //passe au caractere suivant
 			}
-			i++;
+			i++; //passe a argv[2]
 		}
 	}
-	write(1, "\n", 1);
-	return (0);
+	write(1, "\n", 1); //1ere et 2eme consigne
+	return (0); //on retourne un int
 }

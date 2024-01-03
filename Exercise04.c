@@ -345,7 +345,7 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-Exercice : rostring.c 
+Exercice : sort_list.c 
 Allowed functions : write (unistd.h), malloc (), free
 Subjects : 1-Ecrire la fonction suivante : t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 		   2-Cette fonction trie la liste donnée en paramètre en utilisant le pointeur de fonction cmp pour déterminer l'ordre' à appliquer, et renvoie un pointeur vers le premier élément de la liste triée.

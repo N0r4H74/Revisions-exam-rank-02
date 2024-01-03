@@ -8,6 +8,7 @@ Subjects : 1-Écrire un programme qui prend un entier positif en argument et aff
 int		ft_atoi(char *str) //convertit char en int
 {
 	int nbr = 0;
+	int i = 0;
 //ne gere pas le signe
 	while (str[i] && str[i] >= '0' && str[i] <= '9') //ne gere que les chiffres
 	{
@@ -19,11 +20,9 @@ int		ft_atoi(char *str) //convertit char en int
 
 void	ft_putnbr(int n) //récursive pour afficher un entier positif n en char
 {
-	char c;
-
 	if (n >= 10) //signifie qu'il a encore des chiffres à afficher.
 		ft_putnbr(n / 10); //recursivite pour passer au chiffre suivant
-	c = (n % 10) + '0'; //calcule le dernier chiffre de l'entier et le converti en char
+	char c = (n % 10) + '0'; //calcule le dernier chiffre de l'entier et le converti en char
 	write(1, &c, 1); //print l'entier sur la sortie standard
 }
 
@@ -51,7 +50,7 @@ int		add_prime_sum(int n) //calculer la somme des nombres premiers jusqu'à un n
 	while (i <= n)
 	{
 		if (is_prime(i) == 1) //vérifie si i est premier en appelant la fonction is_prime(i)
-			sum += i; //Si i est effectivement premier, elle ajoute sa valeur à la variable sum.
+			sum += i; //Si i est effectivement premier, on stocke sa valeur dans la variable sum.
 		++i; //pour passer au nombre suivant et continue le processus jusqu'à atteindre n.
 	}
 	return (sum); //retourne la somme des nombres premiers trouvés.
@@ -77,14 +76,14 @@ Subjects : 1-Écrire un programme qui affiche une str avec un espace entre chaqu
 
 #include <unistd.h>
 
-int		skip_whitespace(char *str, int i)
+int		skip_whitespace(char *str, int i) //pour ne pas afficher espaces/tab
 {
 	while (str[i] == ' ' || str[i] == '\t')
 		++i;
 	return (i);
 }
 
-int		ft_wordlen(char *str)
+int		ft_wordlen(char *str) //pour obtenir la longueur d'un mot
 {
 	int i = 0;
 
@@ -93,31 +92,31 @@ int		ft_wordlen(char *str)
 	return (i);
 }
 
-void	epur_str(char *str)
+void	epur_str(char *str) //formate la str et l'affiche
 {
-	int i = 0;
-	int first_word = 1;
-	int word_len;
+	int i = 0; //compteur de la str
+	int first_word = 1; //signale que la premiere occurence est le premier mot de la phrase et qu'il ne faut pas d'espace avant
+	int word_len; //compteur de longeur du mot
 
-	i = skip_whitespace(str, i);
-	while (str[i] != '\0')
+	i = skip_whitespace(str, i); //met i a la position apres les potentiels espaces/tab se trouvant en debut de str
+	while (str[i] != '\0') //on parcourt str
 	{
-		if (first_word == 0)
-			write(1, " ", 1);
-		word_len = ft_wordlen(str + i);
-		write(1, str + i, word_len);
-		i = i + word_len;
-		first_word = 0;
-		i = skip_whitespace(str, i);
+		if (first_word == 0) //si ce n'est pas le premier mot de la phrase 
+			write(1, " ", 1); //on affiche un espace qui le separera du mot precedant
+		word_len = ft_wordlen(str + i); //pour compter la longueur du mot
+		write(1, str + i, word_len); //affiche le mot
+		i = i + word_len; //mise a jour de i avec la position du mot suivant
+		first_word = 0; //montre que ce n'est pas le premier mot de la str
+		i = skip_whitespace(str, i); //supprime les espaces/tab rencontrés
 	}
 }
 
-int		main(int argc, char **argv)
+int		main(int argc, char **argv) //fait passer argv[1] dans une fonction qui formate la str et l'affiche
 {
-	if (argc == 2)
-		epur_str(argv[1]);
-	write(1, "\n", 1);
-	return (0);
+	if (argc == 2) //on ne que l'executable et la str
+		epur_str(argv[1]); //fonction qui traite chaque caractere de la str
+	write(1, "\n", 1); // 1ere et 3eme consigne
+	return (0); //il faut retourner un int
 }
 
 Exercice : expand_str.c 
